@@ -1,0 +1,43 @@
+package com.finance.domain;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+/**
+ * Счет пользователя - основная сущность для учета денежных средств
+ * Пользователь - бюджет, кошелек семьи, для многопользовательского приложения
+ * один аккаунт включает в себя списки операций, различные счета, кредиты, графики платежей
+ * авторизация при входе
+ * НЕТ
+ *
+ * Один из многих платежных счетов пользователя:
+ * платежные карты, наличные, кредитный счет и др
+ *
+ */
+@Entity
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Account {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;  // Уникальный идентификатор счета
+
+    private String name;  // Название счета (например: "Основной счет", "Кредитная карта Сбербанк")
+    @Enumerated(EnumType.STRING)
+    private AccountType type;  // Тип счета: кредитный, дебетовый и т.д.
+
+    private String accountNumber;  // Номер счета/карты (может быть замаскирован)
+    // можно добавить два метода получения, например *****3279 и полный номер
+    private double balance;  // Текущий баланс счета
+
+    /**
+     * Типы счетов в системе
+     */
+    public enum AccountType {
+        CREDIT_CARD,    // Кредитный счет/карта
+        DEBIT_CARD,     // Дебетовый счет
+        CASH,           // Наличные деньги
+        INVESTMENT,     // Инвестиционный счет
+        OTHER           // Прочие счета
+    }
+}
