@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 /**
  * Таблица BudgetMainOperation содержит операции проводимые в нашем бюджете:
- * покупки, переводы, платежи, поступления, траты, будущие платежи, отменненые
+ * покупки, переводы, платежи, поступления, траты, будущие платежи, отмененные
  * это ОСНОВНАЯ и самая большая таблица. Остальные вспомогательные
  */
 @Entity
@@ -21,25 +21,39 @@ public class BudgetMainOperation {
 
     private LocalDateTime dateTime;      // Дата и время операции
     private double totalAmount;          // Общая сумма операции
-    private String comment;              // Комментарий к операции
+    private String comment;              // Комментарий, примечание на что потрачено: купил роутер, продукты
+
+    // чек, ссылка на чек. В таблице может содержаться фото, ссылка, текстовое описание чека по операции
+    @ManyToOne
+    @JoinColumn(name = "receipt_id")
+    private Receipt receipt;
+
     @ManyToOne
     @JoinColumn(name = "account_id")
-    private Account account;             // Счет, с которым связана операция
+    // Счет, с которым связана операция (Сбер *1719, кредитная *5057, ткс *1688 или нал User1)
+    // Каждый счет связан с аккаунтом в программе, поэтому указание пользователя не требуется
+    private Account account;
+
     @ManyToOne
     @JoinColumn(name = "marketplace_id")
-    private Marketplace marketplace;     // Магазин/место совершения операции
-    @ManyToOne
-    @JoinColumn(name = "operation_type_id")
-    private OperationType operationType; // Тип операции (доход/расход)
+    // Магазин/место совершения операции(Светофор, азбука вкуса, петрович)
+    private Marketplace marketplace;
+
+    private OperationType operationType; // Тип операции (доход/расход, оплата счета, кредита?)
 
     @ManyToOne
     @JoinColumn(name = "special_type_id")
-    private SpecialType specialType;     // Специальный тип (если есть)
+    // специальный тип/категория для отнесения операции как некоей деятельности,
+    // например, покупки на али с перепродажей на авито
+    private SpecialType specialType;
+
     @ManyToMany
     @JoinTable(
         name = "operation_special_categories",
         joinColumns = @JoinColumn(name = "operation_id"),
         inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private Set<BudgetCategory> specialCategories = new HashSet<>();  // Доп. категории операции
+
+    // Категория расхода: Проодукты, авто, дача, хозяйство, кот, здоровье
+    private Set<Category> specialCategories = new HashSet<>();
 }

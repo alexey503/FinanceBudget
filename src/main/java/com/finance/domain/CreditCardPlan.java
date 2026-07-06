@@ -4,6 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
 
+/*
+ Пока плановая функция по расчету кредитных планов, платежей и т.д.
+ */
+
+
+
 @Entity
 @Getter @Setter
 @NoArgsConstructor

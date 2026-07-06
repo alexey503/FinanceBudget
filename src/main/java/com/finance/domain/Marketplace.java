@@ -18,5 +18,5 @@ public class Marketplace {
     private String comment;    // Произвольный комментарий
     private String web;        // Сайт/ссылка на магазин
     private String type;       // Тип магазина (продукты, электроника и т.д.)
-    private String discountCardId;  // Номер дисконтной карты (если есть)
+    private String discountCardId;  // Номер дисконтной карты
 }
