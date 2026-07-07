@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Management</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="app-container">
+    <!-- Sidebar Menu -->
+    <div class="sidebar">
+        <h1>Бюджет Финансы</h1>
+        <nav>
+            <ul>
+                <li><button class="tablink" onclick="openTab(event, 'futurepay')">Предстоящие плажи</button></li>
+                <li><button class="tablink" onclick="openTab(event, 'operations')">Операции</button></li>
+                <li><button class="tablink" onclick="openTab(event, 'accounts')">Мои счета</button></li>
+                <li><button class="tablink" onclick="openTab(event, 'marketplaces')">Магазины</button></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content-area">
+        <div id="accounts" class="tabcontent">
+            <iframe src="/accounts" frameborder="0"></iframe>
+        </div>
+        <div id="marketplaces" class="tabcontent">
+            <iframe src="/marketplaces" frameborder="0"></iframe>
+        </div>
+        <div id="operations" class="tabcontent">
+            <iframe src="/operations" frameborder="0"></iframe>
+        </div>
+        <div id="futurepay" class="tabcontent">
+            <iframe src="/futurepay" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        // Hide all tab content
+        const tabcontent = document.getElementsByClassName("tabcontent");
+        for (let i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Remove active class from all buttons
+        const tablinks = document.getElementsByClassName("tablink");
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+
+        // Show the current tab and mark button as active
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+    }
+
+    // Open the first tab by default
+    document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('.tablink').click();
+    });
+</script>
+</body>
+</html>

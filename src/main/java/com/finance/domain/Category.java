@@ -16,4 +16,6 @@ public class Category {
     private Long id;  // Уникальный идентификатор категории
     
     private String name;  // Название категории (\"Продукты\", \"Транспорт\", \"Здоровье\")
+
+    private String comment;
 }

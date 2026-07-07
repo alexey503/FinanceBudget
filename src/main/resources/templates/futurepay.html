@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <title>Future Payments</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <h1>Future Payments</h1>
+
+        <div class="list-section">
+            <h2>Scheduled Payments</h2>
+            <table id="futurePaymentsTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Due Date</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <script src="/js/futurepay.js"></script>
+    </div>
+</body>
+</html>

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class BudgetOperationService {
+public class OperationService {
 
     private final BudgetMainOperationRepository operationRepository;
     private final AccountRepository accountRepository;
@@ -36,12 +36,15 @@ public class BudgetOperationService {
         operation.setAccount(accountRepository.findById(dto.getAccountId())
                 .orElseThrow(() -> new RuntimeException("Account not found")));
         
-        operation.setMarketplace(marketplaceRepository.findById(dto.getMarketplaceId())
-                .orElseThrow(() -> new RuntimeException("Marketplace not found")));
-        
+        // Устанавливаем marketplace только если ID не null (если выбран какой-то маркетплейс)
+        if (dto.getMarketplaceId() != null) {
+            operation.setMarketplace(marketplaceRepository.findById(dto.getMarketplaceId())
+                    .orElseThrow(() -> new RuntimeException("Marketplace not found")));
+        }
+
         operation.setOperationType(operationTypeRepository.findById(dto.getOperationTypeId())
                 .orElseThrow(() -> new RuntimeException("OperationType not found")));
-        
+
         if (dto.getSpecialTypeId() != null) {
             operation.setSpecialType(specialTypeRepository.findById(dto.getSpecialTypeId())
                     .orElseThrow(() -> new RuntimeException("SpecialType not found")));
@@ -83,5 +86,9 @@ public class BudgetOperationService {
             expense.setDescription("Expense operations");
             operationTypeRepository.saveAll(List.of(income, expense));
         }
+    }
+
+    public List<BudgetMainOperation> getFutureOperations() {
+        return getAllOperations();
     }
 }

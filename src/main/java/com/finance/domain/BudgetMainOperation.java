@@ -55,6 +55,6 @@ public class BudgetMainOperation {
         inverseJoinColumns = @JoinColumn(name = "category_id")
     )
 
-    // Категория расхода: Проодукты, авто, дача, хозяйство, кот, здоровье
+    // Категория расхода: Продукты, авто, дача, хозяйство, кот, здоровье
     private Set<Category> specialCategories = new HashSet<>();
 }

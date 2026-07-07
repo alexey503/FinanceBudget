@@ -2,7 +2,7 @@ package com.finance.controller;
 
 import com.finance.domain.BudgetMainOperation;
 import com.finance.dto.BudgetOperationDto;
-import com.finance.service.BudgetOperationService;
+import com.finance.service.OperationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,20 +13,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OperationController {
 
-    private final BudgetOperationService budgetOperationService;
+    private final OperationService operationService;
 
     @PostMapping
     public BudgetMainOperation createOperation(@RequestBody BudgetOperationDto dto) {
-        return budgetOperationService.createOperation(dto);
+        return operationService.createOperation(dto);
+    }
+
+    @GetMapping("/futurepay")
+    public List<BudgetMainOperation> getFutureOperations() {
+        return operationService.getFutureOperations();
     }
 
     @GetMapping
     public List<BudgetMainOperation> getAllOperations() {
-        return budgetOperationService.getAllOperations();
+        return operationService.getAllOperations();
     }
 
     @GetMapping("/{id}")
     public BudgetMainOperation getOperationById(@PathVariable Long id) {
-        return budgetOperationService.getOperationById(id);
+        return operationService.getOperationById(id);
     }
 }

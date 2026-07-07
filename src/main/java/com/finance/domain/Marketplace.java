@@ -20,3 +20,5 @@ public class Marketplace {
     private String type;       // Тип магазина (продукты, электроника и т.д.)
     private String discountCardId;  // Номер дисконтной карты
 }
+
+

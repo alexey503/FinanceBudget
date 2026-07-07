@@ -54,7 +54,7 @@ public class AccountService {
     public void deleteAccount(Long id) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Account not found with id: " + id));
-        
+
         accountRepository.delete(account);
     }
 }
