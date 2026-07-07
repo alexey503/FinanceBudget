@@ -1,0 +1,81 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+###
+
+#Создание операции:
+
+POST http://localhost:8080/api/operations
+Content-Type: application/json
+
+{
+  "dateTime": "2024-01-15T12:30:00",
+  "totalAmount": 1500.50,
+  "comment": "Покупка продуктов",
+  "accountId": 1,
+  "marketplaceId": 1,
+  "operationTypeId": 2
+}
+
+
+###
+
+
+GET http://localhost:8080/api/operations
+
+###
+GET http://localhost:8080/api/operations/15
+
+###
+# Создание нового аккаунта (POST)
+
+POST /api/accounts HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "name": "Сбербанк зеленая карта 0517",
+  "description": "Основной расчетный счет дебетовой карты сбера",
+  "balance": 10000.00,
+  "currency": "RUB",
+  "accountNumber": "123456",
+  "type": "DEBIT_CARD",
+  "ownerId": 1
+}
+
+### 2. Получение всех аккаунтов (GET)
+GET /api/accounts HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+
+### 3. Получение конкретного аккаунта по ID (GET)
+
+GET /api/accounts/1 HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+
+### MarketPlace
+# Создание Marketplace:
+POST /api/marketplaces HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "name": "Пятерочка",
+  "comment": "Продуктовый магазин у дома",
+  "web": "https://5ka.ru",
+  "type": "Продукты",
+  "discountCardId": "CARD12345"
+}
+
+### Получение всех Marketplace:
+GET /api/marketplaces HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+
+### Получение 1 маркетплейса
+GET /api/marketplaces/1 HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+

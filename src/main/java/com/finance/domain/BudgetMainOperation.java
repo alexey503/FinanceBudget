@@ -39,8 +39,9 @@ public class BudgetMainOperation {
     // Магазин/место совершения операции(Светофор, азбука вкуса, петрович)
     private Marketplace marketplace;
 
+    @ManyToOne
+    @JoinColumn(name = "operation_type_id")
     private OperationType operationType; // Тип операции (доход/расход, оплата счета, кредита?)
-
     @ManyToOne
     @JoinColumn(name = "special_type_id")
     // специальный тип/категория для отнесения операции как некоей деятельности,
