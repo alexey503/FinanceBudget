@@ -1,13 +1,17 @@
 package com.finance.dto;
 
+import com.finance.domain.Account;
+import com.finance.domain.Receipt;
 import lombok.Data;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Data
-public class BudgetOperationDto {
+public class OperationDto {
+
+    private Long id;
 
     @NotNull
     private LocalDateTime dateTime;
@@ -21,11 +25,21 @@ public class BudgetOperationDto {
     @NotNull
     private Long accountId;
 
-    private Long marketplaceId;
+    @Nullable
+    private Long marketplaceId;  // Может быть null, если маркетплейс не выбран
 
     private Long operationTypeId;
 
     private Long specialTypeId;
-    private Set<Long> categoryIds;
+    private Long categoryId;
     private Long receiptId;
+
+    private Receipt receipt;
+    private Account account;
+
 }
+
+
+
+
+

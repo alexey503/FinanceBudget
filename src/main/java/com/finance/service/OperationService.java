@@ -1,7 +1,8 @@
 package com.finance.service;
 
-import com.finance.domain.*;
-import com.finance.dto.BudgetOperationDto;
+import com.finance.domain.Operation;
+import com.finance.domain.OperationType;
+import com.finance.dto.OperationDto;
 import com.finance.repository.*;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -11,14 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class OperationService {
 
-    private final BudgetMainOperationRepository operationRepository;
+    private final OperationRepository operationRepository;
     private final AccountRepository accountRepository;
     private final MarketplaceRepository marketplaceRepository;
     private final OperationTypeRepository operationTypeRepository;
@@ -27,8 +26,8 @@ public class OperationService {
     private final ReceiptRepository receiptRepository;
 
     @Transactional
-    public BudgetMainOperation createOperation(BudgetOperationDto dto) {
-        BudgetMainOperation operation = new BudgetMainOperation();
+    public Operation createOperation(OperationDto dto) {
+        Operation operation = new Operation();
         operation.setDateTime(dto.getDateTime() != null ? dto.getDateTime() : LocalDateTime.now());
         operation.setTotalAmount(dto.getTotalAmount());
         operation.setComment(dto.getComment());
@@ -50,12 +49,9 @@ public class OperationService {
                     .orElseThrow(() -> new RuntimeException("SpecialType not found")));
         }
         
-        if (dto.getCategoryIds() != null && !dto.getCategoryIds().isEmpty()) {
-            Set<Category> categories = dto.getCategoryIds().stream()
-                    .map(id -> categoryRepository.findById(id)
-                            .orElseThrow(() -> new RuntimeException("Category not found with id: " + id)))
-                    .collect(Collectors.toSet());
-            operation.setSpecialCategories(categories);
+        if (dto.getCategoryId() != null) {
+            operation.setCategory(categoryRepository.findById(dto.getCategoryId())
+                    .orElseThrow(() -> new RuntimeException("Category not found")));
         }
         
         if (dto.getReceiptId() != null) {
@@ -66,11 +62,11 @@ public class OperationService {
         return operationRepository.save(operation);
     }
 
-    public List<BudgetMainOperation> getAllOperations() {
+    public List<Operation> getAllOperations() {
         return operationRepository.findAll();
     }
 
-    public BudgetMainOperation getOperationById(@NotNull Long id) {
+    public Operation getOperationById(@NotNull Long id) {
         return operationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Operation not found"));
     }
@@ -88,7 +84,7 @@ public class OperationService {
         }
     }
 
-    public List<BudgetMainOperation> getFutureOperations() {
+    public List<Operation> getFutureOperations() {
         return getAllOperations();
     }
 }

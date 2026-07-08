@@ -4,40 +4,72 @@
     <title>Operations Management</title>
 </head>
 <body>
-    <div th:fragment="content">
-        <h1>Operations Management</h1>
-
-        <div class="form-section">
-            <h2>Create New Operation</h2>
-            <form id="operationForm">
-                <div>
-                    <label for="operationAmount">Amount:</label>
-                    <input type="number" id="operationAmount" step="0.01" required>
-                </div>
-                <div>
-                    <label for="operationDescription">Description:</label>
-                    <input type="text" id="operationDescription" required>
-                </div>
-                <button type="submit">Create Operation</button>
-            </form>
-        </div>
-
-        <div class="list-section">
-            <h2>Operations List</h2>
-            <table id="operationsTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Amount</th>
-                        <th>Description</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-
-        <script src="/js/operations.js"></script>
+<div th:fragment="content">
+    <div class="header-section">
+        <h1>Операции</h1>
     </div>
+
+    <!-- Форма (всегда видимая) -->
+    <div class="form-section">
+        <h2>Новая операция</h2>
+        <form id="operationForm">
+            <div class="form-row">
+                <label for="operationDate">Дата:</label>
+                <input type="date" id="operationDate" class="form-input" required>
+            </div>
+            <div class="form-row">
+                <label for="operationTime">Время:</label>
+                <input type="time" id="operationTime" class="form-input" value="12:00" required>
+            </div>
+            <div class="form-row">
+                <label for="operationAmount">Сумма:</label>
+                <input type="number" step="0.01" id="operationAmount" class="form-input" required>
+            </div>
+            <div class="form-row">
+                <label for="operationType">Тип:</label>
+                <select id="operationType" class="form-input" required>
+                    <option value="1">Расход</option>
+                    <option value="2">Доход</option>
+                    <option value="3">Перевод</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="operationCategory">Категория:</label>
+                <select id="operationCategory" class="form-input" required>
+                    <option value="">Загрузка категорий...</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="operationDescription">Описание:</label>
+                <textarea id="operationDescription" class="form-input" rows="3"></textarea>
+            </div>
+            <div class="form-row">
+                <label for="operationMarketplace">Маркетплейс:</label>
+                <select id="operationMarketplace" class="form-input">
+                    <option value="">Не выбран</option>
+                </select>
+            </div>
+            <button type="submit" class="create-btn">Добавить операцию</button>
+        </form>
+    </div>
+
+    <div class="list-section">
+        <table id="operationsTable">
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Сумма</th>
+                    <th>Тип</th>
+                    <th>Категория</th>
+                    <th>Описание</th>
+                    <th>Маркетплейс</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script src="/js/operations.js"></script>
+</div>
 </body>
 </html>

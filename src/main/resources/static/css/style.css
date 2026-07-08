@@ -151,111 +151,75 @@ button:hover {
     background-color: #45a049;
 }
 
-/* Стили для формы операций */
-.form-section div {
-    margin-bottom: 10px;
+/* Обновленные стили для формы операций */
+#operationForm {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-.form-section label {
-    display: inline-block;
-    width: 100px;
+#operationForm .form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
-.form-section input {
+#operationForm .form-row label {
+    width: 150px;
+    margin-right: 10px;
+    text-align: right;
+    font-weight: normal;
+}
+
+#operationForm .form-input {
+    width: 300px;
     padding: 8px;
-    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+#operationForm select.form-input {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 30px;
+    height: 38px;
+}
+
+#operationForm textarea.form-input {
+    height: 100px;
+    resize: vertical;
 }
 
 /* Стили для таблицы операций */
 #operationsTable {
     width: 100%;
     margin-top: 20px;
-}
-
-#operationsTable th, #operationsTable td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-/* Стили для таблицы предстоящих платежей */
-#futurePaymentsTable {
-    width: 100%;
-    margin-top: 20px;
-}
-
-#futurePaymentsTable th {
-    background-color: #f2f2f2;
-}
-
-#futurePaymentsTable th, #futurePaymentsTable td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-/* Стили для таблицы счетов */
-#accountsTable {
-    width: 100%;
-    margin-top: 20px;
     border-collapse: collapse;
 }
 
-#accountsTable th {
+#operationsTable th {
     background-color: #f2f2f2;
     padding: 12px;
     text-align: left;
     border-bottom: 2px solid #ddd;
 }
 
-#accountsTable td {
+#operationsTable td {
     padding: 10px;
     border-bottom: 1px solid #ddd;
 }
 
-#accountsTable tr:hover {
+#operationsTable tr:hover {
     background-color: #f5f5f5;
 }
 
-/* Стили для формы */
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: inline-block;
-    width: 150px;
-    margin-right: 10px;
-}
-
-.form-group input,
-.form-group select {
-    padding: 8px;
-    width: 200px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.form-group select {
-    width: 218px;
-    height: 36px;
-}
-
-button[type="submit"] {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-button[type="submit"]:hover {
-    background-color: #45a049;
-}
-
-/* Стили для заголовка и кнопки */
+/* Остальные существующие стили остаются без изменений */
 .header-section {
     display: flex;
     justify-content: space-between;
@@ -391,4 +355,41 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
     background-color: #45a049;
+}
+
+/* Стили для формы операций */
+#operationForm {
+    width: 100%;
+    max-width: 800px;
+}
+
+#operationForm .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+#operationForm .form-group label {
+    margin-bottom: 5px;
+    width: auto;
+    font-weight: bold;
+}
+
+#operationForm .form-group input,
+#operationForm .form-group select,
+#operationForm .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#operationForm .form-group select {
+    height: 36px;
+}
+
+#operationForm .form-group textarea {
+    height: 80px;
+    resize: vertical;
 }

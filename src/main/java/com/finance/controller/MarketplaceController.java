@@ -13,12 +13,8 @@ import java.util.List;
 @RequestMapping("/api/marketplaces")
 public class MarketplaceController {
 
-    private final MarketplaceService marketplaceService;
-
     @Autowired
-    public MarketplaceController(MarketplaceService marketplaceService) {
-        this.marketplaceService = marketplaceService;
-    }
+    private MarketplaceService marketplaceService;
 
     @PostMapping
     public ResponseEntity<Marketplace> createMarketplace(@RequestBody MarketplaceDto marketplaceDto) {
@@ -35,6 +31,9 @@ public class MarketplaceController {
     @GetMapping("/{id}")
     public ResponseEntity<Marketplace> getMarketplaceById(@PathVariable Long id) {
         Marketplace marketplace = marketplaceService.getMarketplaceById(id);
+        if (marketplace == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(marketplace);
     }
 }

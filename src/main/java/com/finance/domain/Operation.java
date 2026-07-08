@@ -3,8 +3,6 @@ package com.finance.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.HashSet;
 
 /**
  * Таблица BudgetMainOperation содержит операции проводимые в нашем бюджете:
@@ -12,10 +10,11 @@ import java.util.HashSet;
  * это ОСНОВНАЯ и самая большая таблица. Остальные вспомогательные
  */
 @Entity
+@Table(name = "budget_main_operation")
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BudgetMainOperation {
+public class Operation {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;  // Уникальный идентификатор операции
 
@@ -48,13 +47,8 @@ public class BudgetMainOperation {
     // например, покупки на али с перепродажей на авито
     private SpecialType specialType;
 
-    @ManyToMany
-    @JoinTable(
-        name = "operation_special_categories",
-        joinColumns = @JoinColumn(name = "operation_id"),
-        inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
-
     // Категория расхода: Продукты, авто, дача, хозяйство, кот, здоровье
-    private Set<Category> specialCategories = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }
