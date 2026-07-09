@@ -26,20 +26,14 @@ public class OperationDto {
     private Long accountId;
 
     @Nullable
-    private Long marketplaceId;  // Может быть null, если маркетплейс не выбран
+    private Long marketplaceId;  // Может быть null, если маркетплейс не выбран при сохранении операции
+    private String marketplaceName;
 
     private Long operationTypeId;
-
     private Long specialTypeId;
     private Long categoryId;
     private Long receiptId;
 
     private Receipt receipt;
     private Account account;
-
 }
-
-
-
-
-

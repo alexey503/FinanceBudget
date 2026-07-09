@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +37,7 @@ public class OperationService {
                 .orElseThrow(() -> new RuntimeException("Account not found")));
         
         // Устанавливаем marketplace только если ID не null (если выбран какой-то маркетплейс)
-        if (dto.getMarketplaceId() != null) {
+        if (dto.getMarketplaceName() != null) {
             operation.setMarketplace(marketplaceRepository.findById(dto.getMarketplaceId())
                     .orElseThrow(() -> new RuntimeException("Marketplace not found")));
         }
@@ -62,13 +63,44 @@ public class OperationService {
         return operationRepository.save(operation);
     }
 
-    public List<Operation> getAllOperations() {
-        return operationRepository.findAll();
+    public List<OperationDto> getAllOperations() {
+        return operationRepository.findAll().stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
-    public Operation getOperationById(@NotNull Long id) {
-        return operationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Operation not found"));
+    public OperationDto getOperationById(@NotNull Long id) {
+        return convertToDto(operationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Operation not found")));
+    }
+
+    private OperationDto convertToDto(Operation operation) {
+        OperationDto dto = new OperationDto();
+        dto.setId(operation.getId());
+        dto.setDateTime(operation.getDateTime());
+        dto.setTotalAmount(operation.getTotalAmount());
+        dto.setComment(operation.getComment());
+        dto.setAccountId(operation.getAccount().getId());
+
+        if (operation.getMarketplace() != null) {
+            dto.setMarketplaceName(operation.getMarketplace().getName());
+        }
+
+        dto.setOperationTypeId(operation.getOperationType().getId());
+
+        if (operation.getSpecialType() != null) {
+            dto.setSpecialTypeId(operation.getSpecialType().getId());
+        }
+
+        if (operation.getCategory() != null) {
+            dto.setCategoryId(operation.getCategory().getId());
+        }
+
+        if (operation.getReceipt() != null) {
+            dto.setReceiptId(operation.getReceipt().getId());
+        }
+
+        return dto;
     }
 
     @PostConstruct
@@ -84,7 +116,7 @@ public class OperationService {
         }
     }
 
-    public List<Operation> getFutureOperations() {
+    public List<OperationDto> getFutureOperations() {
         return getAllOperations();
     }
 }

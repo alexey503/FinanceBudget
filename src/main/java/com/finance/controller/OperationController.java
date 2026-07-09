@@ -29,17 +29,17 @@ public class OperationController {
     }
 
     @GetMapping("/futurepay")
-    public List<Operation> getFutureOperations() {
+    public List<OperationDto> getFutureOperations() {
         return operationService.getFutureOperations();
     }
 
     @GetMapping
-    public List<Operation> getAllOperations() {
+    public List<OperationDto> getAllOperations() {
         return operationService.getAllOperations();
     }
 
     @GetMapping("/{id}")
-    public Operation getOperationById(@PathVariable Long id) {
+    public OperationDto getOperationById(@PathVariable Long id) {
         return operationService.getOperationById(id);
     }
 }

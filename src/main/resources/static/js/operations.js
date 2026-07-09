@@ -74,12 +74,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderOperations(operations) {
         operationsTableBody.innerHTML = '';
         const typeNames = {1: 'Расход', 2: 'Доход', 3: 'Перевод'};
-        const marketplaceNames = {}; // This would need to be populated from loadMarketplaces data
 
         if (operations && operations.length > 0) {
             operations.forEach(op => {
                 const row = document.createElement('tr');
-                const marketplaceCell = op.marketplaceId ? (marketplaceNames[op.marketplaceId] || op.marketplaceId) : '-';
+                const marketplaceCell = op.marketplaceName ? op.marketplaceName : '-';
                 row.innerHTML = `
                     <td>${new Date(op.dateTime).toLocaleDateString() || '-'}</td>
                     <td>${op.totalAmount || '-'}</td>
