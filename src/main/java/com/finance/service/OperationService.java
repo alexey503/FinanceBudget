@@ -83,6 +83,7 @@ public class OperationService {
         dto.setAccountId(operation.getAccount().getId());
 
         if (operation.getMarketplace() != null) {
+            dto.setMarketplaceId(operation.getMarketplace().getId());
             dto.setMarketplaceName(operation.getMarketplace().getName());
         }
 
@@ -94,10 +95,15 @@ public class OperationService {
 
         if (operation.getCategory() != null) {
             dto.setCategoryId(operation.getCategory().getId());
+            dto.setCategoryName(operation.getCategory().getName());
         }
 
         if (operation.getReceipt() != null) {
             dto.setReceiptId(operation.getReceipt().getId());
+        }
+
+        if (operation.getAccount() != null) {
+            dto.setAccount(operation.getAccount());
         }
 
         return dto;

@@ -79,11 +79,15 @@ document.addEventListener('DOMContentLoaded', function() {
             operations.forEach(op => {
                 const row = document.createElement('tr');
                 const marketplaceCell = op.marketplaceName ? op.marketplaceName : '-';
+                const categoryCell = op.categoryName ? op.categoryName : '-';
+                const accountCell = op.account ? op.account.name : '-';
                 row.innerHTML = `
+                    <td>${op.id || '-'}</td>
                     <td>${new Date(op.dateTime).toLocaleDateString() || '-'}</td>
                     <td>${op.totalAmount || '-'}</td>
+                    <td>${accountCell}</td>
                     <td>${typeNames[op.operationTypeId] || op.operationTypeId || '-'}</td>
-                    <td>${op.categoryIds?.[0] || '-'}</td>
+                    <td>${categoryCell}</td>
                     <td>${op.comment || '-'}</td>
                     <td>${marketplaceCell}</td>
                 `;
@@ -143,3 +147,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+

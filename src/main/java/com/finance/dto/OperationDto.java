@@ -32,6 +32,7 @@ public class OperationDto {
     private Long operationTypeId;
     private Long specialTypeId;
     private Long categoryId;
+    private String categoryName;
     private Long receiptId;
 
     private Receipt receipt;

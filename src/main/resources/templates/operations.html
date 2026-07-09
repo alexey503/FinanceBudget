@@ -49,8 +49,10 @@
         <table id="operationsTable">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Дата</th>
                     <th>Сумма</th>
+                    <th>Счет</th>
                     <th>Тип</th>
                     <th>Категория</th>
                     <th>Описание</th>
@@ -59,8 +61,8 @@
             </thead>
             <tbody>
                 <tr th:each="operation : ${operations}">
+                    <td th:text="${operation.id}"></td>
                     <td th:text="${#temporals.format(operation.date, 'dd.MM.yyyy')}"></td>
-                    <td th:text="${operation.amount}"></td>
                     <td th:text="${operation.type.name}"></td>
                     <td th:text="${operation.category.name}"></td>
                     <td th:text="${operation.description}"></td>
