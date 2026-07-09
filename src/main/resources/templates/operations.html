@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: head">
     <title>Operations Management</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <div th:fragment="content">
@@ -14,19 +15,13 @@
         <h2>Новая операция</h2>
         <form id="operationForm">
             <div class="form-row">
-                <label for="operationDate">Дата:</label>
-                <input type="date" id="operationDate" class="form-input" required>
-            </div>
-            <div class="form-row">
-                <label for="operationTime">Время:</label>
+                <label for="operationDate">Дата/Время:</label>
+                <input type="date" id="operationDate" class="form-input" required th:value="${#temporals.format(#temporals.createToday(), 'yyyy-MM-dd')}">
                 <input type="time" id="operationTime" class="form-input" value="12:00" required>
             </div>
             <div class="form-row">
                 <label for="operationAmount">Сумма:</label>
                 <input type="number" step="0.01" id="operationAmount" class="form-input" required>
-            </div>
-            <div class="form-row">
-                <label for="operationType">Тип:</label>
                 <select id="operationType" class="form-input" required>
                     <option value="1">Расход</option>
                     <option value="2">Доход</option>
@@ -38,16 +33,13 @@
                 <select id="operationCategory" class="form-input" required>
                     <option value="">Загрузка категорий...</option>
                 </select>
+                <select id="operationMarketplace" class="form-input">
+                    <option value="">Маркетплейс</option>
+                </select>
             </div>
             <div class="form-row">
                 <label for="operationDescription">Описание:</label>
                 <textarea id="operationDescription" class="form-input" rows="3"></textarea>
-            </div>
-            <div class="form-row">
-                <label for="operationMarketplace">Маркетплейс:</label>
-                <select id="operationMarketplace" class="form-input">
-                    <option value="">Не выбран</option>
-                </select>
             </div>
             <button type="submit" class="create-btn">Добавить операцию</button>
         </form>

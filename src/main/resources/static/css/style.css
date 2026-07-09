@@ -393,3 +393,67 @@ button[type="submit"]:hover {
     height: 80px;
     resize: vertical;
 }
+
+/* Обновленные стили для формы операций */
+#operationForm {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#operationForm .form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#operationForm .form-row label {
+    width: 150px;
+    flex-shrink: 0;
+    margin-right: 10px;
+    font-weight: normal;
+}
+
+#operationForm .form-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+#operationForm select.form-input {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 30px;
+    height: 38px;
+}
+
+#operationForm textarea.form-input {
+    width: calc(200% + 20px); /* В 2 раза шире других полей */
+    min-height: 80px;
+    resize: vertical;
+}
+
+.create-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.create-btn:hover {
+    background-color: #45a049;
+}
+
+/* ... остальные существующие стили ... */
