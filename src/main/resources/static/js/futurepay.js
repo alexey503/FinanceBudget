@@ -179,7 +179,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(result => {
             console.log('Success:', result);
-            alert('Изменения успешно сохранены');
             loadFuturePayments();
         })
         .catch(error => {
