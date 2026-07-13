@@ -8,10 +8,11 @@
 <div th:fragment="content">
     <div class="header-section">
         <h1>Предстоящие платежи</h1>
+        <button id="editButton" class="edit-btn">Редактировать</button>
     </div>
 
     <div class="list-section">
-        <table id="futurePaymentsTable">
+        <table id="futurePaymentsTable" class="editable-table">
             <thead>
                 <tr>
                     <th>ID</th>

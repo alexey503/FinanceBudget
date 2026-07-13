@@ -1,4 +1,5 @@
 --select * from budget_main_operation
+select id, next_id, comment, date_time, total_amount from budget_main_operation order by id
 select budget_main_operation.account_id, category_id, * from budget_main_operation;
 
 update budget_main_operation set category_id = 4 where id in (8,9,10)

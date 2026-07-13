@@ -456,4 +456,57 @@ button[type="submit"]:hover {
     background-color: #45a049;
 }
 
+/* Стили для кнопки редактирования */
+.edit-btn {
+    background-color: #FFC107;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.edit-btn:hover {
+    background-color: #FFB300;
+    transform: scale(1.05);
+}
+
+.edit-btn.save-mode {
+    background-color: #f44336;
+    color: white;
+}
+
+.edit-btn.save-mode:hover {
+    background-color: #da190b;
+}
+
+/* Стили для редактируемых ячеек таблицы */
+.editable-table td {
+    position: relative;
+}
+
+.editable-table.edit-mode td {
+    padding: 4px;
+}
+
+.editable-table.edit-mode td input,
+.editable-table.edit-mode td select {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #2196F3;
+    border-radius: 3px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.editable-table.edit-mode td input:focus,
+.editable-table.edit-mode td select:focus {
+    outline: none;
+    border-color: #0b7dda;
+    box-shadow: 0 0 5px rgba(11, 125, 218, 0.5);
+}
+
 /* ... остальные существующие стили ... */

@@ -43,4 +43,14 @@ public class OperationController {
     public OperationDto getOperationById(@PathVariable Long id) {
         return operationService.getOperationById(id);
     }
+
+    @PostMapping("/update-batch")
+    public ResponseEntity<List<Operation>> updateBatch(@Valid @RequestBody List<OperationDto> dtos) {
+        try {
+            List<Operation> updatedOperations = operationService.updateOperationsBatch(dtos);
+            return ResponseEntity.ok(updatedOperations);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 }
