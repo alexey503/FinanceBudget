@@ -3,7 +3,7 @@ package com.finance.controller;
 import com.finance.domain.Marketplace;
 import com.finance.dto.MarketplaceDto;
 import com.finance.service.MarketplaceService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/marketplaces")
+@RequiredArgsConstructor
 public class MarketplaceController {
 
-    @Autowired
-    private MarketplaceService marketplaceService;
+    private final MarketplaceService marketplaceService;
 
     @PostMapping
     public ResponseEntity<Marketplace> createMarketplace(@RequestBody MarketplaceDto marketplaceDto) {

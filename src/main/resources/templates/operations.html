@@ -25,9 +25,15 @@
                 <select id="operationType" class="form-input" required>
                     <option value="1">Расход</option>
                     <option value="2">Доход</option>
-                    <option value="3">Перевод</option>
                 </select>
             </div>
+            <div class="form-row">
+                <label for="operationAccount">Счет:</label>
+                <select id="operationAccount" class="form-input" required>
+                    <option value="">Загрузка счетов...</option>
+                </select>
+            </div>
+
             <div class="form-row">
                 <label for="operationCategory">Категория:</label>
                 <select id="operationCategory" class="form-input" required>
@@ -60,14 +66,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="operation : ${operations}">
-                    <td th:text="${operation.id}"></td>
-                    <td th:text="${#temporals.format(operation.date, 'dd.MM.yyyy')}"></td>
-                    <td th:text="${operation.type.name}"></td>
-                    <td th:text="${operation.category.name}"></td>
-                    <td th:text="${operation.description}"></td>
-                    <td th:text="${operation.marketplace?.name ?: '-'}"></td>
-                </tr>
+                <!-- Данные подгружаются и рендерятся динамически через operations.js -->
             </tbody>
         </table>
     </div>

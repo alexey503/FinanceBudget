@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Загрузка данных при открытии
     loadCategories();
-            loadOperations();
+    loadAccounts();
+    loadOperations();
     loadMarketplaces();
 
     // Обработчик отправки формы
@@ -33,6 +34,28 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error loading categories:', error);
             document.getElementById('operationCategory').innerHTML =
                 '<option value="">Ошибка загрузки категорий</option>';
+        }
+    }
+
+    // Функция загрузки счетов
+    async function loadAccounts() {
+        try {
+            const response = await fetch('/api/accounts');
+            if (!response.ok) throw new Error('Ошибка загрузки счетов');
+            const accounts = await response.json();
+
+            const select = document.getElementById('operationAccount');
+            select.innerHTML = '';
+            accounts.forEach(acc => {
+                const option = document.createElement('option');
+                option.value = acc.id;
+                option.textContent = acc.name;
+                select.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error loading accounts:', error);
+            document.getElementById('operationAccount').innerHTML =
+                '<option value="">Ошибка загрузки счетов</option>';
         }
     }
 
@@ -73,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Функция отрисовки данных
     function renderOperations(operations) {
         operationsTableBody.innerHTML = '';
-        const typeNames = {1: 'Расход', 2: 'Доход', 3: 'Перевод'};
+        const typeNames = {1: 'Расход', 2: 'Доход'};
 
         if (operations && operations.length > 0) {
             operations.forEach(op => {
@@ -107,6 +130,13 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Пожалуйста, выберите категорию');
             return;
         }
+        const accountSelect = document.getElementById('operationAccount');
+        const accountId = accountSelect.value;
+
+        if (!accountId) {
+            alert('Пожалуйста, выберите счет');
+            return;
+        }
         const marketplaceSelect = document.getElementById('operationMarketplace');
         const marketplaceId = marketplaceSelect.value;
         const dateStr = document.getElementById('operationDate').value;
@@ -116,10 +146,10 @@ document.addEventListener('DOMContentLoaded', function() {
             dateTime: `${dateStr}T${timeStr}:00`, // Формат: "YYYY-MM-DDTHH:MM:00"
             totalAmount: parseFloat(document.getElementById('operationAmount').value),
             comment: document.getElementById('operationDescription').value,
-            accountId: 1, // TODO: нужно добавить выбор счета
+            accountId: parseInt(accountId),
             marketplaceId: marketplaceId ? parseInt(marketplaceId) : null,
             operationTypeId: parseInt(document.getElementById('operationType').value),
-            categoryIds: [parseInt(categoryId)]
+            categoryId: parseInt(categoryId)
         };
 
         try {

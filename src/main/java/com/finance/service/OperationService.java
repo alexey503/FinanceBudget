@@ -5,8 +5,8 @@ import com.finance.domain.OperationType;
 import com.finance.dto.OperationDto;
 import com.finance.repository.*;
 import jakarta.annotation.PostConstruct;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +37,7 @@ public class OperationService {
                 .orElseThrow(() -> new RuntimeException("Account not found")));
         
         // Устанавливаем marketplace только если ID не null (если выбран какой-то маркетплейс)
-        if (dto.getMarketplaceName() != null) {
+        if (dto.getMarketplaceId() != null) {
             operation.setMarketplace(marketplaceRepository.findById(dto.getMarketplaceId())
                     .orElseThrow(() -> new RuntimeException("Marketplace not found")));
         }

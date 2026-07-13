@@ -3,6 +3,7 @@ package com.finance.controller;
 import com.finance.domain.Operation;
 import com.finance.dto.OperationDto;
 import com.finance.service.OperationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class OperationController {
     private final OperationService operationService;
 
     @PostMapping
-    public ResponseEntity<Operation> createOperation(@RequestBody OperationDto dto) {
+    public ResponseEntity<Operation> createOperation(@Valid @RequestBody OperationDto dto) {
         try {
             Operation operation = operationService.createOperation(dto);
             return ResponseEntity.ok(operation);

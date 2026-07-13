@@ -2,8 +2,8 @@ package com.finance.dto;
 
 import com.finance.domain.Account;
 import com.finance.domain.Receipt;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;

@@ -3,7 +3,7 @@ package com.finance.controller;
 import com.finance.domain.Account;
 import com.finance.dto.AccountDto;
 import com.finance.service.AccountService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,14 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/accounts")
+@RequiredArgsConstructor
 public class AccountController {
 
     private final AccountService accountService;
-
-    @Autowired
-    public AccountController(AccountService accountService) {
-        this.accountService = accountService;
-    }
 
     @PostMapping
     public ResponseEntity<Account> createAccount(@RequestBody AccountDto accountDto) {
