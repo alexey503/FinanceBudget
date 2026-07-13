@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let isEditMode = false;
     let originalData = [];
+    let categoriesData = [];
+    let accountsData = [];
+    let marketplacesData = [];
 
     // Загрузка данных при открытии
     loadCategories();
@@ -37,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const response = await fetch('/api/categories');
             if (!response.ok) throw new Error('Ошибка загрузки категорий');
             const categories = await response.json();
+            categoriesData = categories;
 
             const select = document.getElementById('operationCategory');
             select.innerHTML = '';
@@ -59,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const response = await fetch('/api/accounts');
             if (!response.ok) throw new Error('Ошибка загрузки счетов');
             const accounts = await response.json();
+            accountsData = accounts;
 
             const select = document.getElementById('operationAccount');
             select.innerHTML = '';
@@ -81,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const response = await fetch('/api/marketplaces');
             if (!response.ok) throw new Error('Ошибка загрузки маркетплейсов');
             const marketplaces = await response.json();
+            marketplacesData = marketplaces;
 
             const select = document.getElementById('operationMarketplace');
             marketplaces.forEach(mp => {
@@ -163,10 +169,44 @@ document.addEventListener('DOMContentLoaded', function() {
                     cell.innerHTML = `<input type="date" value="${dateValue}">`;
                 } else if (i === 2) { // Сумма
                     cell.innerHTML = `<input type="number" step="0.01" value="${value}">`;
-                } else if (i === 3 || i === 4 || i === 5 || i === 7) { // Счет, Тип, Категория, Маркетплейс
-                    cell.innerHTML = `<input type="text" value="${value}">`;
+                } else if (i === 3) { // Счет
+                    const accountId = cell.dataset.value;
+                    let selectHtml = '<select>';
+                    accountsData.forEach(acc => {
+                        const selected = acc.id == accountId ? 'selected' : '';
+                        selectHtml += `<option value="${acc.id}" ${selected}>${acc.name}</option>`;
+                    });
+                    selectHtml += '</select>';
+                    cell.innerHTML = selectHtml;
+                } else if (i === 4) { // Тип
+                    const typeId = cell.dataset.value;
+                    const typeNames = {1: 'Расход', 2: 'Доход'};
+                    let selectHtml = '<select>';
+                    selectHtml += `<option value="1" ${typeId == 1 ? 'selected' : ''}>Расход</option>`;
+                    selectHtml += `<option value="2" ${typeId == 2 ? 'selected' : ''}>Доход</option>`;
+                    selectHtml += '</select>';
+                    cell.innerHTML = selectHtml;
+                } else if (i === 5) { // Категория
+                    const categoryId = cell.dataset.value;
+                    let selectHtml = '<select>';
+                    categoriesData.forEach(cat => {
+                        const selected = cat.id == categoryId ? 'selected' : '';
+                        selectHtml += `<option value="${cat.id}" ${selected}>${cat.name}</option>`;
+                    });
+                    selectHtml += '</select>';
+                    cell.innerHTML = selectHtml;
                 } else if (i === 6) { // Описание
                     cell.innerHTML = `<textarea>${value}</textarea>`;
+                } else if (i === 7) { // Маркетплейс
+                    const marketplaceId = cell.dataset.value;
+                    let selectHtml = '<select>';
+                    selectHtml += '<option value="">Нет</option>';
+                    marketplacesData.forEach(mp => {
+                        const selected = mp.id == marketplaceId ? 'selected' : '';
+                        selectHtml += `<option value="${mp.id}" ${selected}>${mp.name}</option>`;
+                    });
+                    selectHtml += '</select>';
+                    cell.innerHTML = selectHtml;
                 }
             }
         });
@@ -188,21 +228,21 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const dateInput = cells[1].querySelector('input[type="date"]');
             const amountInput = cells[2].querySelector('input[type="number"]');
-            const accountInput = cells[3].querySelector('input');
-            const typeInput = cells[4].querySelector('input');
-            const categoryInput = cells[5].querySelector('input');
+            const accountSelect = cells[3].querySelector('select');
+            const typeSelect = cells[4].querySelector('select');
+            const categorySelect = cells[5].querySelector('select');
             const commentInput = cells[6].querySelector('textarea');
-            const marketplaceInput = cells[7].querySelector('input');
+            const marketplaceSelect = cells[7].querySelector('select');
 
             const newData = {
                 id: id,
                 dateTime: dateInput ? dateInput.value + 'T12:00:00' : originalData[rowIndex].dateTime,
                 totalAmount: amountInput ? parseFloat(amountInput.value) : originalData[rowIndex].totalAmount,
-                accountId: accountInput ? parseInt(accountInput.value) : originalData[rowIndex].accountId,
-                operationTypeId: typeInput ? parseInt(typeInput.value) : originalData[rowIndex].operationTypeId,
-                categoryId: categoryInput ? parseInt(categoryInput.value) : originalData[rowIndex].categoryId,
+                accountId: accountSelect ? parseInt(accountSelect.value) : originalData[rowIndex].accountId,
+                operationTypeId: typeSelect ? parseInt(typeSelect.value) : originalData[rowIndex].operationTypeId,
+                categoryId: categorySelect ? parseInt(categorySelect.value) : originalData[rowIndex].categoryId,
                 comment: commentInput ? commentInput.value : originalData[rowIndex].comment,
-                marketplaceId: marketplaceInput && marketplaceInput.value ? parseInt(marketplaceInput.value) : originalData[rowIndex].marketplaceId
+                marketplaceId: marketplaceSelect && marketplaceSelect.value ? parseInt(marketplaceSelect.value) : null
             };
 
             // Проверяем, изменилась ли запись
