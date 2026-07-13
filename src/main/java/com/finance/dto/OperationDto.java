@@ -13,16 +13,16 @@ public class OperationDto {
 
     private Long id;
 
-    @NotNull
+    @Nullable
     private LocalDateTime dateTime;
 
-    @NotNull
+    @Nullable
     private Double totalAmount;
 
-    @NotNull
+    @Nullable
     private String comment; // Имя операции, описание
 
-    @NotNull
+    @Nullable
     private Long accountId;
 
     @Nullable
@@ -37,4 +37,6 @@ public class OperationDto {
 
     private Receipt receipt;
     private Account account;
+    
+    private boolean deleted = false;  // Флаг для удаления записи
 }

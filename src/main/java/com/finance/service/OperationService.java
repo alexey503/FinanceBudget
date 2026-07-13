@@ -141,6 +141,15 @@ public class OperationService {
             Operation originalOperation = operationRepository.findById(dto.getId())
                     .orElseThrow(() -> new RuntimeException("Operation not found with id: " + dto.getId()));
 
+            // Проверяем, помечена ли запись как удаленная
+            if (dto.isDeleted()) {
+                // Помечаем запись как удаленную: nextId = null
+                originalOperation.setNextId(null);
+                operationRepository.save(originalOperation);
+                updatedOperations.add(originalOperation);
+                continue;
+            }
+
             // Сравниваем поля оригинальной операции с полученным DTO
             if (!hasOperationChanged(originalOperation, dto)) {
                 // Если изменений нет, пропускаем эту запись

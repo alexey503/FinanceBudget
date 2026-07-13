@@ -159,6 +159,25 @@ document.addEventListener('DOMContentLoaded', function() {
         rows.forEach((row, rowIndex) => {
             const cells = row.querySelectorAll('td');
             
+            // Добавляем обработчик двойного клика на ID для удаления
+            const idCell = cells[0];
+            idCell.style.cursor = 'pointer';
+            idCell.addEventListener('dblclick', function() {
+                if (row.dataset.deleted === 'true') {
+                    // Восстанавливаем запись
+                    row.dataset.deleted = 'false';
+                    idCell.innerHTML = row.dataset.id;
+                    idCell.style.color = 'black';
+                } else {
+                    // Помечаем запись как удаленную
+                    row.dataset.deleted = 'true';
+                    idCell.innerHTML = '✕';
+                    idCell.style.color = 'red';
+                    idCell.style.fontSize = '20px';
+                    idCell.style.fontWeight = 'bold';
+                }
+            });
+            
             // Пропускаем ID ячейку (индекс 0)
             for (let i = 1; i < cells.length; i++) {
                 const cell = cells[i];
@@ -218,13 +237,23 @@ document.addEventListener('DOMContentLoaded', function() {
         editButton.textContent = 'Редактировать';
         editButton.classList.remove('save-mode');
 
-        // Собираем измененные данные
+        // Собираем измененные данные и удаленные записи
         const rows = table.querySelectorAll('tbody tr');
         const changedOperations = [];
 
         rows.forEach((row, rowIndex) => {
             const id = parseInt(row.dataset.id);
             const cells = row.querySelectorAll('td');
+            
+            // Проверяем, помечена ли запись как удаленная
+            if (row.dataset.deleted === 'true') {
+                // Отправляем запись с nextId = null (удаленная)
+                changedOperations.push({
+                    id: id,
+                    deleted: true
+                });
+                return;
+            }
             
             const dateInput = cells[1].querySelector('input[type="date"]');
             const amountInput = cells[2].querySelector('input[type="number"]');
