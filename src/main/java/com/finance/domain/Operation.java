@@ -18,6 +18,10 @@ public class Operation {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;  // Уникальный идентификатор операции
 
+    private Long nextId;                 // Служебное поле для отслеживания версий операций
+                                         // При создании = id, при коррекции старая запись получает nextId = id новой
+                                         // null означает удаленную операцию
+
     private LocalDateTime dateTime;      // Дата и время операции
     private double totalAmount;          // Общая сумма операции
     private String comment;              // Комментарий, примечание на что потрачено: купил роутер, продукты

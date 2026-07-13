@@ -60,11 +60,14 @@ public class OperationService {
                     .orElseThrow(() -> new RuntimeException("Receipt not found")));
         }
 
-        return operationRepository.save(operation);
+        Operation savedOperation = operationRepository.save(operation);
+        // При создании новой операции nextId = id
+        savedOperation.setNextId(savedOperation.getId());
+        return operationRepository.save(savedOperation);
     }
 
     public List<OperationDto> getAllOperations() {
-        return operationRepository.findAll().stream()
+        return operationRepository.findAllActive().stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
@@ -123,6 +126,9 @@ public class OperationService {
     }
 
     public List<OperationDto> getFutureOperations() {
-        return getAllOperations();
+        LocalDateTime now = LocalDateTime.now();
+        return operationRepository.findFutureOperations(now).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 }

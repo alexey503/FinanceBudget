@@ -2,27 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: head">
     <title>Future Payments</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div th:fragment="content">
-        <h1>Future Payments</h1>
-
-        <div class="list-section">
-            <h2>Scheduled Payments</h2>
-            <table id="futurePaymentsTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Amount</th>
-                        <th>Description</th>
-                        <th>Due Date</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-
-        <script src="/js/futurepay.js"></script>
+<div th:fragment="content">
+    <div class="header-section">
+        <h1>Предстоящие платежи</h1>
     </div>
+
+    <div class="list-section">
+        <table id="futurePaymentsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Дата</th>
+                    <th>Сумма</th>
+                    <th>Счет</th>
+                    <th>Тип</th>
+                    <th>Категория</th>
+                    <th>Описание</th>
+                    <th>Маркетплейс</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Данные подгружаются и рендерятся динамически через futurepay.js -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/js/futurepay.js"></script>
+</div>
 </body>
 </html>
