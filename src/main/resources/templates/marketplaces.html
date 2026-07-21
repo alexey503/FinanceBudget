@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout :: head">
+<head th:replace="~{layout :: head}">
     <title>Marketplaces Management</title>
 </head>
 <body>
@@ -51,9 +51,14 @@
         </div>
 
         <div class="list-section">
-            <table id="marketplacesTable">
+            <div class="header-section">
+                <h2>Таблица маркетплейсов</h2>
+                <button id="editButton" class="edit-btn">Редактировать</button>
+            </div>
+            <table id="marketplacesTable" class="editable-table">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Название</th>
                         <th>Комментарий</th>
                         <th>Веб-сайт</th>

@@ -36,4 +36,10 @@ public class MarketplaceController {
         }
         return ResponseEntity.ok(marketplace);
     }
+
+    @PostMapping("/update-batch")
+    public ResponseEntity<List<Marketplace>> updateMarketplacesBatch(@RequestBody List<MarketplaceDto> marketplaceDtos) {
+        List<Marketplace> updatedMarketplaces = marketplaceService.updateMarketplacesBatch(marketplaceDtos);
+        return ResponseEntity.ok(updatedMarketplaces);
+    }
 }

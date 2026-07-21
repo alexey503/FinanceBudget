@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout :: head">
+<head th:replace="~{layout :: head}">
     <title>Accounts Management</title>
 </head>
 <body>
@@ -40,9 +40,14 @@
         </div>
 
         <div class="list-section">
-            <table id="accountsTable">
+            <div class="header-section">
+                <h2>Таблица счетов</h2>
+                <button id="editButton" class="edit-btn">Редактировать</button>
+            </div>
+            <table id="accountsTable" class="editable-table">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Название</th>
                         <th>Остаток</th>
                         <th>Тип карты</th>

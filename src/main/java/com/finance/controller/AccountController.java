@@ -33,4 +33,10 @@ public class AccountController {
         Account account = accountService.getAccountById(id);
         return ResponseEntity.ok(account);
     }
+
+    @PostMapping("/update-batch")
+    public ResponseEntity<List<Account>> updateAccountsBatch(@RequestBody List<AccountDto> accountDtos) {
+        List<Account> updatedAccounts = accountService.updateAccountsBatch(accountDtos);
+        return ResponseEntity.ok(updatedAccounts);
+    }
 }

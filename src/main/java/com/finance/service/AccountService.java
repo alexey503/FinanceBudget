@@ -57,4 +57,31 @@ public class AccountService {
 
         accountRepository.delete(account);
     }
+
+    @Transactional
+    public List<Account> updateAccountsBatch(List<AccountDto> dtos) {
+        List<Account> updatedAccounts = new java.util.ArrayList<>();
+        
+        for (AccountDto dto : dtos) {
+            Account account = accountRepository.findById(dto.getId())
+                    .orElseThrow(() -> new RuntimeException("Account not found with id: " + dto.getId()));
+
+            // Проверяем, помечена ли запись как удаленная
+            if (dto.isDeleted()) {
+                accountRepository.delete(account);
+                updatedAccounts.add(account);
+                continue;
+            }
+
+            // Обновляем поля
+            account.setName(dto.getName());
+            account.setBalance(dto.getBalance());
+            account.setAccountNumber(dto.getAccountNumber());
+
+            accountRepository.save(account);
+            updatedAccounts.add(account);
+        }
+
+        return updatedAccounts;
+    }
 }

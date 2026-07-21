@@ -9,5 +9,7 @@ public class MarketplaceDto {
     private String comment;
     private String web;
     private String type;
+    private String discountCard;
     private String discountCardId;
+    private boolean deleted = false;
 }
